@@ -1,16 +1,38 @@
 #require_relative 'lib/.rb'
-require 'byebug'
+#require 'byebug'
 def ls()
-  Dir.chdir(ARGV[0])
-  directory = (ARGV[0])
-  directory = directory.gsub("\\", "/")
+
+  #directory = (ARGV[0])
+  #directory = directory.gsub("\\", "/")
   if (ARGV.empty?)
-    puts Dir.glob("*")
+    directories = []
+    items = Dir.entries(".")
+    items.each do |i|
+      if Dir.exist?(i)
+        directories.push i
+      end
+    end
+
+    files = items - directories
+    puts directories
+    puts files
+
   elsif Dir.exist?(ARGV[0]) == false
     puts "Not an existing directory"
   else
-    puts Dir.glob("*")
-  end
+    Dir.chdir(ARGV[0])
+    directories = []
+    items = Dir.entries(".")
+    items.each do |i|
+      if Dir.exist?(i)
+        directories.push i
+      end
+    end
+
+      files = items - directories
+    puts directories
+    puts files
+
+    end
 end
-#byebug
 ls()
